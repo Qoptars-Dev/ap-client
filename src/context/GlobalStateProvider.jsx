@@ -7,6 +7,8 @@ const GlobalStateContext = createContext();
 // Fetcher function for SWR
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
+const SERVER_URI = import.meta.env.VITE_SERVER_URI;
+
 // Create a provider component
 // eslint-disable-next-line react/prop-types
 export const GlobalStateProvider = ({ children }) => {
@@ -23,7 +25,7 @@ export const GlobalStateProvider = ({ children }) => {
     
         // Use SWR to fetch data if it's not already cached
         const { data: swrData, error: dataError } = useSWR(
-            fetchedData ? null : 'https://ap-server-762430015584.asia-south1.run.app/data',
+            fetchedData ? null : `${SERVER_URI}/data`,
             fetcher
         );
     
